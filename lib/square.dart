@@ -1,14 +1,20 @@
 
 import 'package:flutter/material.dart';
 
+
+
 class Square extends StatefulWidget {
 
-    String squareName;
+    int row;
+    String column;
     bool isOccupied = false;
+    var type;
 
-    Square(name, occupied){
-      this.squareName = name;
+    Square(columnName, rowName, occupied, pieceType){
+      this.column = columnName;
+      this.row = rowName;
       this.isOccupied = occupied;
+      this.type = pieceType;
     }
 
   @override
@@ -21,22 +27,25 @@ class _SquareState extends State<Square> {
       return widget.isOccupied;
     }
 
-    String get name{
-      return widget.squareName;
-    }
 
     bool get occupied{
       return widget.isOccupied;
     }
 
+    String get name{
+      return "${widget.row} + ${widget.column}";
+    }
+
   @override
   Widget build(BuildContext context) {
+
     double height = MediaQuery.of(context).size.height * 0.1;
     double width = MediaQuery.of(context).size.width * 0.1;
     return Container(
       color: widget.isOccupied == true?Colors.green:Colors.yellow,
       height: height,
       width: width,
-      child:Center(child:Text(widget.squareName)));
+      child: widget.type.toString() == "PieceType.Pawn"?Center(child: (Text("Pawn"))):Center(child: Text("NO"))
+      );
   }
 }
