@@ -31,17 +31,25 @@ class _SquareState extends State<Square> {
   }
 
   String get name {
-    return " Col: ${widget.column} Row: ${widget.row}";
+    return "Col: ${widget.column} Row: ${widget.row}";
   }
 
   @override
   Widget build(BuildContext context) {
     double heightt = MediaQuery.of(context).size.height * 0.1;
     double width = MediaQuery.of(context).size.width * 0.1;
-    return Container(
-        color: widget.color,
-        height: heightt,
-        width: width,
-        child: Text(name));
+    return GestureDetector(
+        onDoubleTap: () {
+          if (widget.type != null){
+            widget.type.getValidMoves();
+          }
+        },
+        child: Container(
+            color: widget.color,
+            height: heightt,
+            width: width,
+            child: (widget.type == null)
+                ? Text("Chuth")
+                : Text(widget.type.getName + widget.type.getColor.toString())));
   }
 }

@@ -22,11 +22,18 @@ class _BoardState extends State<Board> {
   List<Square> print = [];
 
   _createBoard() {
-    for (int row = 0; row <= 7; row++) {
+    for (int row = 1; row <= 8; row++) {
       List<Square> tempList = new List<Square>();
-      for (int col = 0; col <= 7; col++) {
-        Square tempSquare = new Square(col + 1, row + 1, false, null,
-            (row + col) % 2 == 0 ? Colors.yellow : Colors.black);
+      for (int col = 1; col <= 8; col++) {
+        bool check = false;
+        var temp;
+        if (row == 2 || row == 7){
+        
+          row == 2 ? temp = Pawn(col, row, Colors.black):temp = Pawn(col, row, Colors.white);
+          check = true;
+        }
+        Square tempSquare = new Square(col, row, false, check?temp:null,
+            (row + col) % 2 == 0 ? Colors.blue : Colors.pink);
         tempList.add(tempSquare);
         print.add(tempSquare);
       }

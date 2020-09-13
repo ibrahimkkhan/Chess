@@ -1,6 +1,12 @@
+import 'dart:ui';
+
 import '../square.dart';
 
 abstract class  Piece{
+
+  Color color;
+
+  Color get getColor;
 
   bool alive = true;
 
