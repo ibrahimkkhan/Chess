@@ -1,12 +1,17 @@
 import 'dart:ui';
 
+import '../board.dart';
 import '../square.dart';
 
-abstract class  Piece{
+abstract class Piece{
 
   Color color;
 
   Color get getColor;
+
+  Map<String, int> get getLocation;
+
+  Map<String, int> updateLocation(int colNew, int rowNew);
 
   bool alive = true;
 
@@ -14,5 +19,5 @@ abstract class  Piece{
 
   Map<String, int> location;
 
-  List<String> getValidMoves();
+  List<String> getValidMoves(List<List<Square>> board);
 }

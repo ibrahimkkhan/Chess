@@ -1,14 +1,22 @@
+import 'package:chess/pieces/pawn.dart';
 import 'package:chess/pieces/piece.dart';
 import 'package:flutter/material.dart';
 
+import 'board.dart';
+
+
+
 class Square extends StatefulWidget {
+  final SquareController controller;
+
   int row;
   int column;
   bool isOccupied = false;
   Piece type;
   Color color;
+  
 
-  Square(columnName, rowName, occupied, pieceType, color) {
+  Square({columnName, rowName, occupied, pieceType, color, this.controller}) {
     this.column = columnName;
     this.row = rowName;
     this.isOccupied = occupied;
@@ -16,23 +24,40 @@ class Square extends StatefulWidget {
     this.color = color;
   }
 
+  String get name {
+    return "Col: ${this.column} Row: ${this.row}";
+  }
+
   @override
-  _SquareState createState() => _SquareState();
+  SquareState createState() => SquareState(controller);
 }
 
-class _SquareState extends State<Square> {
-  bool changeOccupy() {
-    widget.isOccupied = !widget.isOccupied;
-    return widget.isOccupied;
+class SquareState extends State<Square> {
+   SquareState(SquareController _controller) {
+    _controller.changeOccupy = changeOccupy;
+  }
+
+  void changeOccupy(Piece piece) {
+    setState(() {
+      // print(widget.column.toString() + widget.row.toString() + piece.getLocation.toString());
+      widget.isOccupied = !widget.isOccupied;
+      widget.type = piece;
+      print(widget.type.getLocation);
+    });
+    
+    
+    // if (piece == null){
+
+    // }else{
+
+    // }
   }
 
   bool get occupied {
     return widget.isOccupied;
   }
 
-  String get name {
-    return "Col: ${widget.column} Row: ${widget.row}";
-  }
+  
 
   @override
   Widget build(BuildContext context) {
@@ -40,16 +65,14 @@ class _SquareState extends State<Square> {
     double width = MediaQuery.of(context).size.width * 0.1;
     return GestureDetector(
         onDoubleTap: () {
-          if (widget.type != null){
-            widget.type.getValidMoves();
-          }
+          
         },
         child: Container(
             color: widget.color,
             height: heightt,
             width: width,
             child: (widget.type == null)
-                ? Text("Chuth")
-                : Text(widget.type.getName + widget.type.getColor.toString())));
+                ? Text(widget.name)
+                : Text(widget.name + widget.type.getName)));
   }
 }
